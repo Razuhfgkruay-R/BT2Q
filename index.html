@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absensi BT2Q SMAM 2 Depok</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Anti Seleksi Teks & Highlight */
+    body { 
+      font-family: 'Inter', sans-serif;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .hidden { display: none !important; }
+    
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Animasi Gelembung Cahaya Bergerak */
+    @keyframes floatOrb1 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(40px, -50px) scale(1.15); }
+    }
+    @keyframes floatOrb2 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(-50px, 40px) scale(1.2); }
+    }
+    @keyframes floatOrb3 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(30px, 30px) scale(0.9); }
+    }
+
+    .animate-orb-1 { animation: floatOrb1 10s ease-in-out infinite; }
+    .animate-orb-2 { animation: floatOrb2 12s ease-in-out infinite; }
+    .animate-orb-3 { animation: floatOrb3 14s ease-in-out infinite; }
+
+    /* ANIMASI GARIS HIJAU LOADING BERGERAK */
+    @keyframes loadingBar {
+      0% {
+        left: -40%;
+        width: 30%;
+      }
+      50% {
+        left: 20%;
+        width: 70%;
+      }
+      100% {
+        left: 100%;
+        width: 30%;
+      }
+    }
+
+    .animate-loading-bar {
+      position: absolute;
+      animation: loadingBar 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col justify-between" oncontextmenu="return false;">
+
+  <!-- ALERT TOAST -->
+  <div id="toast" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold"></div>
+
+  <!-- MAIN CONTAINER WRAPPER -->
+  <div class="flex-1 flex flex-col">
+
+    <!-- ==================== 1. LAYAR LOGIN ==================== -->
+    <div id="screen-login" class="relative flex items-center justify-center p-4 my-auto min-h-[85vh] overflow-hidden">
+      
+      <!-- BACKGROUND GELEMBUNG CAHAYA BERGERAK -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-10 -left-10 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-300/40 rounded-full blur-3xl animate-orb-1"></div>
+        <div class="absolute -bottom-10 -right-10 w-80 h-80 sm:w-[28rem] sm:h-[28rem] bg-teal-300/40 rounded-full blur-3xl animate-orb-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-emerald-200/30 rounded-full blur-2xl animate-orb-3"></div>
+      </div>
+
+      <!-- CARD LOGIN -->
+      <div class="relative z-10 bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/60">
+        
+        <!-- Header Login Layout Samping -->
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden p-1 shadow-md">
+            <img src="logo-sekolah.png" alt="Logo Sekolah" class="w-full h-full object-contain pointer-events-none" ondragstart="return false;" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
+          </div>
+          <div>
+            <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Selamat Datang</span>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-800 leading-tight">Absensi BT2Q</h2>
+            <p class="text-xs text-slate-500 mt-0.5">SMA Muhammadiyah 2 Depok</p>
+          </div>
+        </div>
+
+        <!-- GARIS HIJAU BERGERAK KAYA LOADING -->
+        <div class="relative h-1.5 w-full bg-slate-100 rounded-full mb-6 overflow-hidden">
+          <div class="animate-loading-bar h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 rounded-full shadow-sm"></div>
+        </div>
+
+        <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Username</label>
+            <input type="text" id="username" required placeholder="Masukkan username" 
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+            <input type="password" id="password" required placeholder="••••••••" 
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition">
+          </div>
+          <button type="submit" id="btn-login" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-2.5 rounded-xl shadow-lg shadow-emerald-600/30 text-sm transition mt-2">
+            Masuk Aplikasi
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==================== 2. LAYAR DASHBOARD ADMIN ==================== -->
+    <div id="screen-admin" class="hidden min-h-screen pb-12">
+      <!-- Header Admin -->
+      <header class="bg-slate-900 text-white sticky top-0 z-20 shadow-md px-4 py-3">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+          <div class="flex items-center gap-2.5">
+            <span class="bg-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded text-white tracking-wider">ADMIN</span>
+            <h3 id="admin-greeting" class="font-bold text-sm sm:text-base">Hallo, Administrator</h3>
+          </div>
+          <button onclick="logout()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3.5 py-1.5 rounded-lg border border-slate-700 text-slate-300 transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            <span>Keluar</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
+        <!-- Opsi / Tab Menu Navigasi Admin -->
+        <div class="flex bg-slate-200/80 p-1.5 rounded-xl max-w-md mx-auto sm:mx-0">
+          <button id="tab-btn-today" onclick="switchAdminTab('today')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <span>Monitoring Hari Ini</span>
+          </button>
+          <button id="tab-btn-kelompok" onclick="switchAdminTab('kelompok')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            <span>Monitoring Kelompok</span>
+          </button>
+        </div>
+
+        <!-- TAB 1: MONITORING HARI INI -->
+        <div id="admin-tab-today" class="space-y-4">
+          <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-5 rounded-2xl shadow-md border border-slate-700 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+            <div>
+              <p class="text-xs text-slate-400">Status Monitoring Hari Ini</p>
+              <h4 id="admin-date-display" class="font-bold text-lg text-emerald-400">-</h4>
+            </div>
+            <div class="text-left sm:text-right">
+              <span id="admin-progress-text" class="text-xs font-semibold bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 text-emerald-400">
+                0 / 0 Kelompok
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-semibold text-slate-600">Persentase Kelompok Mengabsen</span>
+              <span id="admin-percent-text" class="font-bold text-emerald-600">0%</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div id="admin-progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">Daftar Kelompok & Mentor</h4>
+            <div id="admin-list-today" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+        </div>
+
+        <!-- TAB 2: MONITORING KELOMPOK & RIWAYAT TANGGAL -->
+        <div id="admin-tab-kelompok" class="hidden space-y-4">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+              </svg>
+              <span>Filter Data Kelompok & Tanggal</span>
+            </h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- CUSTOM DROPDOWN KELOMPOK -->
+              <div class="relative">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Kelompok</label>
+                <button type="button" id="btn-dropdown-kelompok" onclick="toggleDropdown('dropdown-kelompok')" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-left text-xs sm:text-sm font-medium text-slate-700 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 flex justify-between items-center transition shadow-sm">
+                  <span id="selected-kelompok-label" class="truncate">Pilih Kelompok</span>
+                  <svg class="w-4 h-4 text-slate-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div id="dropdown-kelompok" class="hidden absolute left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
+              </div>
+
+              <!-- CUSTOM DROPDOWN TANGGAL -->
+              <div class="relative">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Tanggal Absensi</label>
+                <button type="button" id="btn-dropdown-tanggal" onclick="toggleDropdown('dropdown-tanggal')" disabled class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left text-xs sm:text-sm font-medium text-slate-400 cursor-not-allowed focus:outline-none flex justify-between items-center transition shadow-sm">
+                  <span id="selected-tanggal-label" class="truncate">Pilih Tanggal</span>
+                  <svg class="w-4 h-4 text-slate-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div id="dropdown-tanggal" class="hidden absolute left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container Tampilan Data Masuk Kelompok -->
+          <div id="admin-kelompok-detail-container" class="hidden space-y-4">
+            <div class="bg-emerald-600 text-white p-4 rounded-xl flex justify-between items-center shadow-sm">
+              <div>
+                <p id="detail-mentor-name" class="text-xs text-emerald-100 font-medium">Mentor: -</p>
+                <h4 id="detail-kelompok-title" class="font-bold text-base">Kelompok -</h4>
+              </div>
+              <span id="detail-tanggal-title" class="bg-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-emerald-500">-</span>
+            </div>
+
+            <div id="admin-siswa-table-wrapper" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <table class="w-full text-left text-xs sm:text-sm">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                  <tr>
+                    <th class="p-3.5">No</th>
+                    <th class="p-3.5">Nama Siswa</th>
+                    <th class="p-3.5">Kelas</th>
+                    <th class="p-3.5 text-center">Status Absensi</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-siswa-table-body" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ==================== 3. LAYAR INPUT ABSENSI (USTADZ / ADMIN EDIT VIEW) ==================== -->
+    <div id="screen-absensi" class="hidden min-h-screen pb-28">
+      <header class="bg-emerald-600 text-white sticky top-0 z-20 shadow-md px-4 py-3">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <button id="btn-back-admin" onclick="showScreen('screen-admin')" class="hidden bg-emerald-700 hover:bg-emerald-800 px-2.5 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+              <span>Dashboard</span>
+            </button>
+            <div>
+              <p id="user-greeting" class="text-[11px] text-emerald-100 font-medium">Hallo, -</p>
+              <h3 id="current-kelompok-title" class="font-bold text-sm sm:text-base">Kelompok Loading...</h3>
+              <p id="current-date-display" class="text-[10px] text-emerald-200">-</p>
+            </div>
+          </div>
+          <button onclick="logout()" class="text-xs bg-emerald-700 hover:bg-emerald-800 px-3.5 py-1.5 rounded-lg border border-emerald-500 transition">
+            Keluar
+          </button>
+        </div>
+      </header>
+
+      <main class="max-w-4xl mx-auto p-4 sm:p-6 space-y-4">
+        <div class="grid grid-cols-4 gap-2 bg-white p-3 rounded-xl border border-slate-200 text-center shadow-sm text-xs sm:text-sm font-semibold max-w-md mx-auto sm:max-w-none">
+          <div class="bg-emerald-50 text-emerald-700 py-2 rounded-lg">Hadir: <span id="count-h" class="font-bold">0</span></div>
+          <div class="bg-blue-50 text-blue-700 py-2 rounded-lg">Izin: <span id="count-i" class="font-bold">0</span></div>
+          <div class="bg-amber-50 text-amber-700 py-2 rounded-lg">Sakit: <span id="count-s" class="font-bold">0</span></div>
+          <div class="bg-rose-50 text-rose-700 py-2 rounded-lg">Alfa: <span id="count-a" class="font-bold">0</span></div>
+        </div>
+
+        <div id="list-siswa-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </main>
+
+      <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-30">
+        <div class="max-w-4xl mx-auto flex justify-end">
+          <button id="btn-submit" onclick="submitAbsensi()" class="w-full sm:w-auto px-8 bg-emerald-600 hover:bg-emerald-700 active:scale-98 text-white font-bold py-3 rounded-xl shadow-lg transition">
+            Kirim Data Absensi
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WATERMARK / FOOTER BRANDING -->
+  <footer class="py-4 text-center text-[11px] text-slate-400 border-t border-slate-200/80 bg-white/50 backdrop-blur-sm mt-auto z-10">
+    <p>© 2027 Absensi BT2Q SMAM 2 Depok</p>
+    <p class="text-[10px] text-slate-400 mt-0.5">Developed with ❤ by <span class="font-bold text-emerald-600">Razuhfgkruay</span></p>
+  </footer>
+
+  <!-- SCRIPT UTAMA & SCRIPT PROTEKSI -->
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyXdzPs5GZXvA8jt81u0y4YVN8F4tNEmtxgkGkwNxOVE_4W_A3ztrRPOT40ozEEYRW2/exec";
+
+    let currentAuth = null;
+    let listSiswaData = [];
+    let activeKelompokTarget = null;
+    let adminSummaryCache = null;
+    let isDataSubmitted = false; // Flag status simpan data
+
+    let selectedAdminKelompokVal = "";
+    let selectedAdminTanggalVal = "";
+
+    // SCRIPT PROTEKSI ANTI KLIK KANAN & ANTI INSPECT
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey && (e.key === 'U' || e.key === 'u')) || (e.metaKey && e.altKey && (e.key === 'U' || e.key === 'u'))) {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // FITUR PERINGATAN KELUAR / REFRESH SAAT MENGABSEN
+    window.addEventListener('beforeunload', (e) => {
+      const screenAbsensi = document.getElementById('screen-absensi');
+      if (screenAbsensi && !screenAbsensi.classList.contains('hidden') && !isDataSubmitted) {
+        e.preventDefault();
+        e.returnValue = "Data absensi belum disimpan! Harap simpan/input data terlebih dahulu sebelum keluar.";
+        return e.returnValue;
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      showScreen('screen-login');
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#btn-dropdown-kelompok') && !e.target.closest('#dropdown-kelompok')) {
+          document.getElementById('dropdown-kelompok').classList.add('hidden');
+        }
+        if (!e.target.closest('#btn-dropdown-tanggal') && !e.target.closest('#dropdown-tanggal')) {
+          document.getElementById('dropdown-tanggal').classList.add('hidden');
+        }
+      });
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    function showScreen(id) {
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-admin').classList.add('hidden');
+      document.getElementById('screen-absensi').classList.add('hidden');
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function toggleDropdown(dropdownId) {
+      const el = document.getElementById(dropdownId);
+      const isHidden = el.classList.contains('hidden');
+      document.getElementById('dropdown-kelompok').classList.add('hidden');
+      document.getElementById('dropdown-tanggal').classList.add('hidden');
+      if (isHidden) el.classList.remove('hidden');
+    }
+
+    function getHariDanTanggal(strTanggal) {
+      if (!strTanggal) return "-";
+      const parts = String(strTanggal).split('/');
+      if (parts.length === 3) {
+        const dateObj = new Date(parts[2], parts[1] - 1, parts[0]);
+        const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        return `${namaHari[dateObj.getDay()]}, ${strTanggal}`;
+      }
+      return strTanggal;
+    }
+
+    function cleanKelasText(kelasVal) {
+      if (!kelasVal) return "";
+      let str = String(kelasVal).trim();
+      if (str.includes("T") && str.includes("Z")) {
+        let dateObj = new Date(str);
+        if (!isNaN(dateObj.getTime())) {
+          let m = dateObj.getMonth() + 1;
+          let d = dateObj.getDate();
+          return `${m}.${d}`;
+        }
+      }
+      return str;
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const btn = document.getElementById('btn-login');
+
+      btn.disabled = true;
+      btn.innerText = "Memeriksa...";
+
+      try {
+        const res = await fetch(`${API_URL}?action=login&username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`);
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = "Masuk Aplikasi";
+
+        if (data.success) {
+          currentAuth = data;
+          if (String(data.idKelompok).toUpperCase() === "ADMIN") {
+            loadDashboardAdmin();
+          } else {
+            document.getElementById('btn-back-admin').classList.add('hidden');
+            activeKelompokTarget = data.idKelompok;
+            loadDataAbsensi(data.idKelompok);
+          }
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerText = "Masuk Aplikasi";
+        showToast("Gagal terhubung ke server!");
+      }
+    }
+
+    function switchAdminTab(tabName) {
+      const btnToday = document.getElementById('tab-btn-today');
+      const btnKelompok = document.getElementById('tab-btn-kelompok');
+      const tabToday = document.getElementById('admin-tab-today');
+      const tabKelompok = document.getElementById('admin-tab-kelompok');
+
+      if (tabName === 'today') {
+        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2";
+        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2";
+        tabToday.classList.remove('hidden');
+        tabKelompok.classList.add('hidden');
+      } else {
+        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2";
+        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2";
+        tabKelompok.classList.remove('hidden');
+        tabToday.classList.add('hidden');
+      }
+    }
+
+    async function loadDashboardAdmin() {
+      document.getElementById('admin-greeting').innerText = `Hallo, ${currentAuth.namaPetugas || 'Administrator'}`;
+      showScreen('screen-admin');
+
+      const containerToday = document.getElementById('admin-list-today');
+      containerToday.innerHTML = `<p class="col-span-full text-center text-xs text-slate-400 py-6">Memuat status kelompok...</p>`;
+
+      try {
+        const res = await fetch(`${API_URL}?action=getAdminSummary`);
+        const data = await res.json();
+
+        if (data.success) {
+          adminSummaryCache = data;
+          document.getElementById('admin-date-display').innerText = getHariDanTanggal(data.tanggalToday);
+          
+          const totalKelompok = data.summary.length;
+          const totalSudah = data.summary.filter(k => k.sudahMengabsen).length;
+          const percent = totalKelompok > 0 ? Math.round((totalSudah / totalKelompok) * 100) : 0;
+          
+          document.getElementById('admin-progress-text').innerText = `${totalSudah} / ${totalKelompok} Kelompok`;
+          document.getElementById('admin-percent-text').innerText = `${percent}%`;
+          document.getElementById('admin-progress-bar').style.width = `${percent}%`;
+
+          containerToday.innerHTML = "";
+          data.summary.forEach(k => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between";
+            const badgeStatus = k.sudahMengabsen 
+              ? `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Sudah Mengabsen</span>`
+              : `<span class="bg-rose-100 text-rose-700 text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-rose-500 rounded-full"></span> Belum Mengabsen</span>`;
+
+            card.innerHTML = `
+              <div>
+                <h5 class="font-bold text-xs sm:text-sm text-slate-800">${k.idKelompok}</h5>
+                <p class="text-[11px] text-slate-500 font-medium mt-0.5">Mentor: <span class="text-slate-700">${k.namaPetugas}</span></p>
+                <div class="mt-1.5">${badgeStatus}</div>
+              </div>
+              <button onclick="openKelompokAsAdmin('${k.idKelompok}')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold px-3 py-1.5 rounded-lg border border-emerald-200 transition">
+                Input Hari Ini ➔
+              </button>
+            `;
+            containerToday.appendChild(card);
+          });
+
+          const listKelompokContainer = document.getElementById('dropdown-kelompok');
+          listKelompokContainer.innerHTML = "";
+          data.summary.forEach(k => {
+            const btnOpt = document.createElement('button');
+            btnOpt.type = "button";
+            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg hover:bg-emerald-50 hover:text-emerald-700 font-medium transition text-slate-700";
+            btnOpt.innerText = `${k.idKelompok} (${k.namaPetugas})`;
+            btnOpt.onclick = () => selectCustomKelompok(k.idKelompok, `${k.idKelompok} (${k.namaPetugas})`);
+            listKelompokContainer.appendChild(btnOpt);
+          });
+
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        showToast("Gagal memuat dashboard admin!");
+      }
+    }
+
+    async function selectCustomKelompok(idKelompok, labelText) {
+      selectedAdminKelompokVal = idKelompok;
+      document.getElementById('selected-kelompok-label').innerText = labelText;
+      document.getElementById('dropdown-kelompok').classList.add('hidden');
+
+      selectedAdminTanggalVal = "";
+      document.getElementById('selected-tanggal-label').innerText = "Memuat tanggal...";
+      document.getElementById('admin-kelompok-detail-container').classList.add('hidden');
+
+      const btnTanggal = document.getElementById('btn-dropdown-tanggal');
+      btnTanggal.disabled = true;
+      btnTanggal.className = "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left text-xs sm:text-sm font-medium text-slate-400 cursor-not-allowed flex justify-between items-center transition shadow-sm";
+
+      try {
+        const res = await fetch(`${API_URL}?action=getTanggalListByKelompok&idKelompok=${encodeURIComponent(idKelompok)}`);
+        const data = await res.json();
+
+        const listTanggalContainer = document.getElementById('dropdown-tanggal');
+        listTanggalContainer.innerHTML = "";
+
+        if (data.success && data.tanggalList.length > 0) {
+          btnTanggal.disabled = false;
+          btnTanggal.className = "w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-left text-xs sm:text-sm font-medium text-slate-700 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 flex justify-between items-center transition shadow-sm cursor-pointer";
+          document.getElementById('selected-tanggal-label').innerText = "-- Pilih Tanggal --";
+
+          data.tanggalList.forEach(tgl => {
+            const btnOpt = document.createElement('button');
+            btnOpt.type = "button";
+            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg hover:bg-emerald-50 hover:text-emerald-700 font-medium transition text-slate-700";
+            btnOpt.innerText = tgl;
+            btnOpt.onclick = () => selectCustomTanggal(tgl);
+            listTanggalContainer.appendChild(btnOpt);
+          });
+        } else {
+          document.getElementById('selected-tanggal-label').innerText = "Belum Ada Data Tanggal";
+        }
+      } catch (err) {
+        showToast("Gagal mengambil daftar tanggal!");
+      }
+    }
+
+    function selectCustomTanggal(tgl) {
+      selectedAdminTanggalVal = tgl;
+      document.getElementById('selected-tanggal-label').innerText = tgl;
+      document.getElementById('dropdown-tanggal').classList.add('hidden');
+      loadAdminDataByTanggal();
+    }
+
+    async function loadAdminDataByTanggal() {
+      const idKelompok = selectedAdminKelompokVal;
+      const tanggal = selectedAdminTanggalVal;
+      const detailContainer = document.getElementById('admin-kelompok-detail-container');
+      const tableBody = document.getElementById('admin-siswa-table-body');
+
+      if (!idKelompok || !tanggal) {
+        detailContainer.classList.add('hidden');
+        return;
+      }
+
+      const infoKelompok = adminSummaryCache ? adminSummaryCache.summary.find(k => k.idKelompok === idKelompok) : null;
+      document.getElementById('detail-mentor-name').innerText = `Mentor: ${infoKelompok ? infoKelompok.namaPetugas : '-'}`;
+      document.getElementById('detail-kelompok-title').innerText = idKelompok;
+      document.getElementById('detail-tanggal-title').innerText = getHariDanTanggal(tanggal);
+
+      tableBody.innerHTML = `<tr><td colspan="4" class="text-center p-6 text-xs text-slate-400">Memuat data absensi...</td></tr>`;
+      detailContainer.classList.remove('hidden');
+
+      try {
+        const res = await fetch(`${API_URL}?action=getSiswaByTanggal&idKelompok=${encodeURIComponent(idKelompok)}&tanggal=${encodeURIComponent(tanggal)}`);
+        const data = await res.json();
+
+        if (data.success) {
+          tableBody.innerHTML = "";
+          data.listSiswa.forEach((siswa, idx) => {
+            let colorBadge = "bg-rose-100 text-rose-700";
+            if (siswa.status === 'Hadir') colorBadge = "bg-emerald-100 text-emerald-700";
+            else if (siswa.status === 'Izin') colorBadge = "bg-blue-100 text-blue-700";
+            else if (siswa.status === 'Sakit') colorBadge = "bg-amber-100 text-amber-700";
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td class="p-3.5 font-medium text-slate-500">${idx + 1}</td>
+              <td class="p-3.5 font-semibold text-slate-800">${siswa.nama}</td>
+              <td class="p-3.5 text-slate-500">Kelas ${cleanKelasText(siswa.kelas)}</td>
+              <td class="p-3.5 text-center">
+                <span class="px-2.5 py-1 text-xs font-bold rounded-lg ${colorBadge}">${siswa.status}</span>
+              </td>
+            `;
+            tableBody.appendChild(tr);
+          });
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        showToast("Gagal memuat data absensi tanggal tersebut!");
+      }
+    }
+
+    function openKelompokAsAdmin(idKelompok) {
+      activeKelompokTarget = idKelompok;
+      document.getElementById('btn-back-admin').classList.remove('hidden');
+      loadDataAbsensi(idKelompok);
+    }
+
+    async function loadDataAbsensi(idKelompok) {
+      isDataSubmitted = false; // Reset status input
+      document.getElementById('user-greeting').innerText = `Hallo, ${currentAuth.namaPetugas || 'Petugas'}`;
+      document.getElementById('current-kelompok-title').innerText = `${idKelompok}`;
+      
+      try {
+        const res = await fetch(`${API_URL}?action=getSiswa&idKelompok=${encodeURIComponent(idKelompok)}`);
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('current-date-display').innerText = getHariDanTanggal(data.tanggalToday);
+          listSiswaData = data.listSiswa;
+          renderListSiswa(data.listSiswa);
+          showScreen('screen-absensi');
+        } else {
+          showToast(data.message);
+        }
+      } catch (err) {
+        showToast("Gagal mengambil data siswa!");
+      }
+    }
+
+    function renderListSiswa(list) {
+      const container = document.getElementById('list-siswa-container');
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        container.innerHTML = `<p class="col-span-full text-center text-xs text-slate-400 py-10">Belum ada data siswa.</p>`;
+        return;
+      }
+
+      list.forEach((siswa, index) => {
+        const st = siswa.status || 'Alfa';
+
+        const item = document.createElement('div');
+        item.className = "bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-2";
+        item.innerHTML = `
+          <div class="min-w-0 flex-1">
+            <p class="font-semibold text-slate-800 text-xs sm:text-sm truncate">${siswa.nama}</p>
+            <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md font-medium">Kelas ${cleanKelasText(siswa.kelas)}</span>
+          </div>
+          <div class="flex gap-1 bg-slate-100 p-1 rounded-lg shrink-0">
+            ${renderRadio(index, 'Hadir', 'H', st === 'Hadir', 'emerald')}
+            ${renderRadio(index, 'Izin', 'I', st === 'Izin', 'blue')}
+            ${renderRadio(index, 'Sakit', 'S', st === 'Sakit', 'amber')}
+            ${renderRadio(index, 'Alfa', 'A', st === 'Alfa', 'rose')}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      updateCounter();
+    }
+
+    function renderRadio(index, fullVal, labelText, isChecked, color) {
+      return `
+        <label class="cursor-pointer">
+          <input type="radio" name="siswa_${index}" value="${fullVal}" onchange="updateCounter()" class="peer hidden" ${isChecked ? 'checked' : ''}>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-md block peer-checked:bg-${color}-500 peer-checked:text-white text-slate-500 transition">${labelText}</span>
+        </label>
+      `;
+    }
+
+    function updateCounter() {
+      let h = 0, i = 0, s = 0, a = 0;
+      listSiswaData.forEach((_, index) => {
+        const selected = document.querySelector(`input[name="siswa_${index}"]:checked`);
+        if (selected) {
+          if (selected.value === 'Hadir') h++;
+          else if (selected.value === 'Izin') i++;
+          else if (selected.value === 'Sakit') s++;
+          else if (selected.value === 'Alfa') a++;
+        }
+      });
+      document.getElementById('count-h').innerText = h;
+      document.getElementById('count-i').innerText = i;
+      document.getElementById('count-s').innerText = s;
+      document.getElementById('count-a').innerText = a;
+    }
+
+    async function submitAbsensi() {
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.innerText = "Mengirim Data...";
+
+      let payloadRecords = [];
+      listSiswaData.forEach((siswa, index) => {
+        const selected = document.querySelector(`input[name="siswa_${index}"]:checked`);
+        payloadRecords.push({ 
+          nama: siswa.nama, 
+          kelas: cleanKelasText(siswa.kelas), 
+          status: selected ? selected.value : 'Alfa' 
+        });
+      });
+
+      const payload = { 
+        idKelompok: activeKelompokTarget, 
+        records: payloadRecords 
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = "Kirim Data Absensi";
+        
+        if (data.success) {
+          isDataSubmitted = true; // Set flag data sudah terkirim
+        }
+        showToast(data.message);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerText = "Kirim Data Absensi";
+        showToast("Gagal menyimpan data!");
+      }
+    }
+
+    function logout() {
+      currentAuth = null;
+      activeKelompokTarget = null;
+      adminSummaryCache = null;
+      selectedAdminKelompokVal = "";
+      selectedAdminTanggalVal = "";
+      isDataSubmitted = false;
+      document.getElementById('username').value = "";
+      document.getElementById('password').value = "";
+      showScreen('screen-login');
+    }
+  </script>
+</body>
+</html>
