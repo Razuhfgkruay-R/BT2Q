@@ -548,7 +548,7 @@
         if (data.success && data.tanggalList.length > 0) {
           btnTanggal.disabled = false;
           btnTanggal.className = "w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-left text-xs sm:text-sm font-medium text-slate-700 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 flex justify-between items-center transition shadow-sm cursor-pointer";
-          document.getElementById('selected-tanggal-label').innerText = "-- Pilih Tanggal --";
+          document.getElementById('selected-tanggal-label').innerText = "Pilih Tanggal!";
 
           data.tanggalList.forEach(tgl => {
             const btnOpt = document.createElement('button');
