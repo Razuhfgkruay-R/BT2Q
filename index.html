@@ -15,24 +15,13 @@
       -ms-user-select: none;
       user-select: none;
       
-      /* FITUR BACKGROUND BT2Q-BG (MOBILE FIRST) */
+      /* BACKGROUND FITUR BT2Q-BG ZOOM & FULL LAYAR */
       background-color: #f1f5f9;
       background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.45), rgba(241, 245, 249, 0.75)), url('bt2q-bg.jpg');
       background-repeat: no-repeat;
-      
-      /* Mobile: Ukuran Asli Lebar (100% auto), Patokan Atas (Top Center) */
-      background-size: 100% auto;
-      background-position: top center;
-    }
-
-    /* Desktop View (Layar >= 768px) */
-    @media (min-width: 768px) {
-      body {
-        /* Desktop: Cover Memenuhi Layar, Patokan Paling Atas (Bukan Tengah) */
-        background-size: cover;
-        background-position: top center;
-        background-attachment: fixed;
-      }
+      background-size: cover; /* Selalu full layar tanpa terpotong batas bawah */
+      background-position: top center; /* Patokan gambar paling atas */
+      background-attachment: fixed;
     }
 
     .hidden { display: none !important; }
@@ -56,15 +45,15 @@
     /* Animasi Gelembung Cahaya Bergerak */
     @keyframes floatOrb1 {
       0%, 100% { transform: translate(0px, 0px) scale(1); }
-      50% { transform: translate(40px, -50px) scale(1.15); }
+      50% { transform: translate(60px, -60px) scale(1.2); }
     }
     @keyframes floatOrb2 {
       0%, 100% { transform: translate(0px, 0px) scale(1); }
-      50% { transform: translate(-50px, 40px) scale(1.2); }
+      50% { transform: translate(-60px, 60px) scale(1.25); }
     }
     @keyframes floatOrb3 {
       0%, 100% { transform: translate(0px, 0px) scale(1); }
-      50% { transform: translate(30px, 30px) scale(0.9); }
+      50% { transform: translate(40px, 40px) scale(0.9); }
     }
 
     .animate-orb-1 { animation: floatOrb1 10s ease-in-out infinite; }
@@ -102,13 +91,13 @@
   <div class="flex-1 flex flex-col">
 
     <!-- ==================== 1. LAYAR LOGIN ==================== -->
-    <div id="screen-login" class="relative flex items-center justify-center p-4 my-auto min-h-[85vh] overflow-hidden">
+    <div id="screen-login" class="relative flex items-center justify-center p-4 my-auto min-h-[85vh]">
       
-      <!-- BACKGROUND GELEMBUNG CAHAYA BERGERAK -->
-      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute -top-10 -left-10 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-300/30 rounded-full blur-3xl animate-orb-1"></div>
-        <div class="absolute -bottom-10 -right-10 w-80 h-80 sm:w-[28rem] sm:h-[28rem] bg-teal-300/30 rounded-full blur-3xl animate-orb-2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-emerald-200/20 rounded-full blur-2xl animate-orb-3"></div>
+      <!-- BACKGROUND GELEMBUNG CAHAYA BERGERAK FULL LAYAR -->
+      <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-16 -left-16 w-80 h-80 sm:w-[32rem] sm:h-[32rem] bg-emerald-300/35 rounded-full blur-3xl animate-orb-1"></div>
+        <div class="absolute -bottom-16 -right-16 w-96 h-96 sm:w-[36rem] sm:h-[36rem] bg-teal-300/35 rounded-full blur-3xl animate-orb-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 sm:w-[28rem] sm:h-[28rem] bg-emerald-200/25 rounded-full blur-2xl animate-orb-3"></div>
       </div>
 
       <!-- CARD LOGIN -->
