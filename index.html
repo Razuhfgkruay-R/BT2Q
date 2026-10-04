@@ -14,71 +14,77 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      background-color: #0f172a;
+      
+      /* FITUR BACKGROUND BT2Q-BG (MOBILE FIRST) */
+      background-color: #f1f5f9;
+      background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.45), rgba(241, 245, 249, 0.75)), url('bt2q-bg.jpg');
+      background-repeat: no-repeat;
+      
+      /* Mobile: Ukuran Asli Lebar (100% auto), Patokan Atas (Top Center) */
+      background-size: 100% auto;
+      background-position: top center;
     }
+
+    /* Desktop View (Layar >= 768px) */
+    @media (min-width: 768px) {
+      body {
+        /* Desktop: Cover Memenuhi Layar, Patokan Paling Atas (Bukan Tengah) */
+        background-size: cover;
+        background-position: top center;
+        background-attachment: fixed;
+      }
+    }
+
     .hidden { display: none !important; }
-
-    /* LIQUID GLASS STYLE COMPONENTS */
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.78);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.8);
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    .glass-input {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(203, 213, 225, 0.8);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-    }
-
-    .glass-input:focus {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: #10b981;
-      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
-    }
     
     /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(241, 245, 249, 0.5);
+      background: #f1f5f9;
       border-radius: 8px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #a7f3d0;
+      background: #cbd5e1;
       border-radius: 8px;
     }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
 
-    /* Animasi Gelembung Cairan Berkilau */
+    /* Animasi Gelembung Cahaya Bergerak */
     @keyframes floatOrb1 {
-      0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-      50% { transform: translate(60px, -60px) scale(1.2) rotate(180deg); }
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(40px, -50px) scale(1.15); }
     }
     @keyframes floatOrb2 {
-      0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-      50% { transform: translate(-70px, 50px) scale(1.25) rotate(-180deg); }
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(-50px, 40px) scale(1.2); }
+    }
+    @keyframes floatOrb3 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(30px, 30px) scale(0.9); }
     }
 
-    .animate-orb-1 { animation: floatOrb1 14s ease-in-out infinite; }
-    .animate-orb-2 { animation: floatOrb2 16s ease-in-out infinite; }
+    .animate-orb-1 { animation: floatOrb1 10s ease-in-out infinite; }
+    .animate-orb-2 { animation: floatOrb2 12s ease-in-out infinite; }
+    .animate-orb-3 { animation: floatOrb3 14s ease-in-out infinite; }
 
-    /* ANIMASI GARIS HIJAU LIQUID LOADING BERGERAK */
+    /* ANIMASI GARIS HIJAU LOADING BERGERAK */
     @keyframes loadingBar {
-      0% { left: -40%; width: 30%; }
-      50% { left: 20%; width: 70%; }
-      100% { left: 100%; width: 30%; }
+      0% {
+        left: -40%;
+        width: 30%;
+      }
+      50% {
+        left: 20%;
+        width: 70%;
+      }
+      100% {
+        left: 100%;
+        width: 30%;
+      }
     }
 
     .animate-loading-bar {
@@ -87,79 +93,72 @@
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col justify-between text-slate-800 relative" oncontextmenu="return false;">
-
-  <!-- GAMBAR BACKGROUND & OVERLAY GELAP/EMERALD LIQUID -->
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-    <!-- Gambar Background bt2q-bg -->
-    <img src="bt2q-bg.png" alt="Background BTTQ" class="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.05]" onerror="this.style.display='none';">
-    <!-- Overlay Transparan Gradient untuk efek Liquid Glass -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-950/70 via-emerald-950/50 to-slate-900/80 backdrop-blur-[3px]"></div>
-  </div>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between" oncontextmenu="return false;">
 
   <!-- ALERT TOAST -->
-  <div id="toast" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 glass-panel text-slate-900 px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold border border-white/80"></div>
+  <div id="toast" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold"></div>
 
   <!-- MAIN CONTAINER WRAPPER -->
-  <div class="flex-1 flex flex-col relative z-10">
-
-    <!-- GELEMBUNG CAHAYA BACKGROUND LIQUID -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      <div class="absolute -top-20 -left-20 w-[30rem] h-[30rem] bg-emerald-500/25 rounded-full blur-[100px] animate-orb-1"></div>
-      <div class="absolute -bottom-20 -right-20 w-[35rem] h-[35rem] bg-teal-400/20 rounded-full blur-[120px] animate-orb-2"></div>
-    </div>
+  <div class="flex-1 flex flex-col">
 
     <!-- ==================== 1. LAYAR LOGIN ==================== -->
-    <div id="screen-login" class="relative z-10 flex items-center justify-center p-4 my-auto min-h-[85vh]">
+    <div id="screen-login" class="relative flex items-center justify-center p-4 my-auto min-h-[85vh] overflow-hidden">
       
-      <!-- CARD LOGIN LIQUID GLASS -->
-      <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8">
+      <!-- BACKGROUND GELEMBUNG CAHAYA BERGERAK -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-10 -left-10 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-300/30 rounded-full blur-3xl animate-orb-1"></div>
+        <div class="absolute -bottom-10 -right-10 w-80 h-80 sm:w-[28rem] sm:h-[28rem] bg-teal-300/30 rounded-full blur-3xl animate-orb-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-emerald-200/20 rounded-full blur-2xl animate-orb-3"></div>
+      </div>
+
+      <!-- CARD LOGIN -->
+      <div class="relative z-10 bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/60">
         
-        <!-- Header Login -->
+        <!-- Header Login Layout Samping -->
         <div class="flex items-center gap-4 mb-6">
-          <div class="w-16 h-16 bg-white/80 backdrop-blur-md rounded-2xl flex items-center justify-center shrink-0 border border-white/80 p-1.5 shadow-md">
+          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden p-1 shadow-md">
             <img src="logo-sekolah.png" alt="Logo Sekolah" class="w-full h-full object-contain pointer-events-none" ondragstart="return false;" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
           </div>
           <div>
-            <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Selamat Datang</span>
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">Absensi BT2Q</h2>
-            <p class="text-xs text-slate-600 mt-0.5">SMA Muhammadiyah 2 Depok</p>
+            <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Selamat Datang</span>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-800 leading-tight">Absensi BT2Q</h2>
+            <p class="text-xs text-slate-500 mt-0.5">SMA Muhammadiyah 2 Depok</p>
           </div>
         </div>
 
-        <!-- GARIS LIQUID LOADING BERGERAK -->
-        <div class="relative h-1.5 w-full bg-slate-200/60 rounded-full mb-6 overflow-hidden">
-          <div class="animate-loading-bar h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 rounded-full shadow-md"></div>
+        <!-- GARIS HIJAU BERGERAK KAYA LOADING -->
+        <div class="relative h-1.5 w-full bg-slate-100 rounded-full mb-6 overflow-hidden">
+          <div class="animate-loading-bar h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 rounded-full shadow-sm"></div>
         </div>
 
         <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Username</label>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Username</label>
             <input type="text" id="username" required placeholder="Masukkan username" 
-              class="glass-input w-full px-4 py-2.5 rounded-xl text-sm transition focus:outline-none">
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
             <input type="password" id="password" required placeholder="••••••••" 
-              class="glass-input w-full px-4 py-2.5 rounded-xl text-sm transition focus:outline-none">
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition">
           </div>
-          <button type="submit" id="btn-login" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-900/20 text-sm transition mt-2 border border-emerald-400/30">
-            Masuk
+          <button type="submit" id="btn-login" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-2.5 rounded-xl shadow-lg shadow-emerald-600/30 text-sm transition mt-2">
+            Masuk Aplikasi
           </button>
         </form>
       </div>
     </div>
 
     <!-- ==================== 2. LAYAR DASHBOARD ADMIN ==================== -->
-    <div id="screen-admin" class="hidden min-h-screen pb-12 relative z-10">
-      <!-- Header Admin Liquid -->
-      <header class="glass-panel sticky top-0 z-20 px-4 py-3 border-b border-white/40">
+    <div id="screen-admin" class="hidden min-h-screen pb-12">
+      <!-- Header Admin -->
+      <header class="bg-slate-900/95 backdrop-blur-md text-white sticky top-0 z-20 shadow-md px-4 py-3 border-b border-slate-800">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
           <div class="flex items-center gap-2.5">
-            <span class="bg-emerald-600 text-[10px] font-bold px-2.5 py-0.5 rounded-lg text-white tracking-wider shadow-sm">ADMIN</span>
-            <h3 id="admin-greeting" class="font-bold text-sm sm:text-base text-slate-900">Hallo, Administrator</h3>
+            <span class="bg-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded text-white tracking-wider">ADMIN</span>
+            <h3 id="admin-greeting" class="font-bold text-sm sm:text-base">Hallo, Administrator</h3>
           </div>
-          <button onclick="logout()" class="text-xs glass-card hover:bg-white px-3.5 py-1.5 rounded-xl text-slate-700 transition flex items-center gap-1.5 font-semibold">
+          <button onclick="logout()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3.5 py-1.5 rounded-lg border border-slate-700 text-slate-300 transition flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
             <span>Keluar</span>
           </button>
@@ -168,12 +167,12 @@
 
       <main class="max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
         <!-- Opsi / Tab Menu Navigasi Admin -->
-        <div class="flex glass-panel p-1.5 rounded-2xl max-w-md mx-auto sm:mx-0">
-          <button id="tab-btn-today" onclick="switchAdminTab('today')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white/90 text-emerald-800 shadow-sm flex items-center justify-center gap-2">
+        <div class="flex bg-slate-200/80 backdrop-blur-md p-1.5 rounded-xl max-w-md mx-auto sm:mx-0 border border-slate-300/50">
+          <button id="tab-btn-today" onclick="switchAdminTab('today')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
             <span>Monitoring Hari Ini</span>
           </button>
-          <button id="tab-btn-kelompok" onclick="switchAdminTab('kelompok')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2">
+          <button id="tab-btn-kelompok" onclick="switchAdminTab('kelompok')" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
             <span>Monitoring Kelompok</span>
           </button>
@@ -181,38 +180,38 @@
 
         <!-- TAB 1: MONITORING HARI INI -->
         <div id="admin-tab-today" class="space-y-4">
-          <div class="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+          <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-5 rounded-2xl shadow-md border border-slate-700 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
             <div>
-              <p class="text-xs text-slate-600 font-medium">Status Monitoring Hari Ini</p>
-              <h4 id="admin-date-display" class="font-bold text-lg text-emerald-700">-</h4>
+              <p class="text-xs text-slate-400">Status Monitoring Hari Ini</p>
+              <h4 id="admin-date-display" class="font-bold text-lg text-emerald-400">-</h4>
             </div>
             <div class="text-left sm:text-right">
-              <span id="admin-progress-text" class="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-xl border border-emerald-200/60">
+              <span id="admin-progress-text" class="text-xs font-semibold bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 text-emerald-400">
                 0 / 0 Kelompok
               </span>
             </div>
           </div>
 
-          <div class="glass-card p-4 rounded-2xl space-y-2">
+          <div class="bg-white/90 backdrop-blur-md p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
             <div class="flex justify-between items-center text-xs">
-              <span class="font-semibold text-slate-700">Persentase Kelompok Terabsen</span>
-              <span id="admin-percent-text" class="font-bold text-emerald-700">0%</span>
+              <span class="font-semibold text-slate-600">Persentase Kelompok Mengabsen</span>
+              <span id="admin-percent-text" class="font-bold text-emerald-600">0%</span>
             </div>
-            <div class="w-full bg-slate-200/60 rounded-full h-3 overflow-hidden">
-              <div id="admin-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div id="admin-progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
           </div>
 
           <div class="space-y-3">
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider px-1">Daftar Kelompok & Mentor</h4>
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">Daftar Kelompok & Mentor</h4>
             <div id="admin-list-today" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
           </div>
         </div>
 
         <!-- TAB 2: MONITORING KELOMPOK & RIWAYAT TANGGAL -->
         <div id="admin-tab-kelompok" class="hidden space-y-4">
-          <div class="glass-panel p-4 sm:p-5 rounded-3xl space-y-4">
-            <h4 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+          <div class="bg-white/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-sm text-slate-800 flex items-center gap-2">
               <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
               </svg>
@@ -222,41 +221,41 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- CUSTOM DROPDOWN KELOMPOK -->
               <div class="relative">
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Pilih Kelompok</label>
-                <button type="button" id="btn-dropdown-kelompok" onclick="toggleDropdown('dropdown-kelompok')" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-left text-xs sm:text-sm font-semibold text-slate-800 flex justify-between items-center transition">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Kelompok</label>
+                <button type="button" id="btn-dropdown-kelompok" onclick="toggleDropdown('dropdown-kelompok')" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-left text-xs sm:text-sm font-medium text-slate-700 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 flex justify-between items-center transition shadow-sm">
                   <span id="selected-kelompok-label" class="truncate">Pilih Kelompok</span>
-                  <svg class="w-4 h-4 text-slate-500 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <svg class="w-4 h-4 text-slate-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
 
-                <div id="dropdown-kelompok" class="hidden absolute left-0 right-0 mt-1.5 glass-panel rounded-2xl shadow-2xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
+                <div id="dropdown-kelompok" class="hidden absolute left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
               </div>
 
               <!-- CUSTOM DROPDOWN TANGGAL -->
               <div class="relative">
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Pilih Tanggal Absensi</label>
-                <button type="button" id="btn-dropdown-tanggal" onclick="toggleDropdown('dropdown-tanggal')" disabled class="glass-input w-full px-3.5 py-2.5 rounded-xl text-left text-xs sm:text-sm font-semibold text-slate-400 cursor-not-allowed flex justify-between items-center transition opacity-60">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Tanggal Absensi</label>
+                <button type="button" id="btn-dropdown-tanggal" onclick="toggleDropdown('dropdown-tanggal')" disabled class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left text-xs sm:text-sm font-medium text-slate-400 cursor-not-allowed focus:outline-none flex justify-between items-center transition shadow-sm">
                   <span id="selected-tanggal-label" class="truncate">Pilih Tanggal</span>
-                  <svg class="w-4 h-4 text-slate-500 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <svg class="w-4 h-4 text-slate-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
 
-                <div id="dropdown-tanggal" class="hidden absolute left-0 right-0 mt-1.5 glass-panel rounded-2xl shadow-2xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
+                <div id="dropdown-tanggal" class="hidden absolute left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-30 max-h-56 overflow-y-auto custom-scrollbar p-1.5 space-y-1"></div>
               </div>
             </div>
           </div>
 
           <!-- Container Tampilan Data Masuk Kelompok -->
           <div id="admin-kelompok-detail-container" class="hidden space-y-4">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4.5 rounded-2xl flex justify-between items-center shadow-lg border border-emerald-400/30">
+            <div class="bg-emerald-600 text-white p-4 rounded-xl flex justify-between items-center shadow-sm">
               <div>
                 <p id="detail-mentor-name" class="text-xs text-emerald-100 font-medium">Mentor: -</p>
                 <h4 id="detail-kelompok-title" class="font-bold text-base">Kelompok -</h4>
               </div>
-              <span id="detail-tanggal-title" class="bg-white/20 backdrop-blur-md text-xs font-bold px-3 py-1.5 rounded-xl border border-white/30">-</span>
+              <span id="detail-tanggal-title" class="bg-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-emerald-500">-</span>
             </div>
 
-            <div id="admin-siswa-table-wrapper" class="glass-panel rounded-2xl overflow-hidden">
+            <div id="admin-siswa-table-wrapper" class="bg-white/90 backdrop-blur-md rounded-xl border border-slate-200 shadow-sm overflow-hidden">
               <table class="w-full text-left text-xs sm:text-sm">
-                <thead class="bg-slate-100/60 border-b border-slate-200/80 text-slate-700 font-bold">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-semibold">
                   <tr>
                     <th class="p-3.5">No</th>
                     <th class="p-3.5">Nama Siswa</th>
@@ -264,7 +263,7 @@
                     <th class="p-3.5 text-center">Status Absensi</th>
                   </tr>
                 </thead>
-                <tbody id="admin-siswa-table-body" class="divide-y divide-slate-200/50"></tbody>
+                <tbody id="admin-siswa-table-body" class="divide-y divide-slate-100"></tbody>
               </table>
             </div>
           </div>
@@ -273,40 +272,40 @@
     </div>
 
     <!-- ==================== 3. LAYAR INPUT ABSENSI (USTADZ / ADMIN EDIT VIEW) ==================== -->
-    <div id="screen-absensi" class="hidden min-h-screen pb-28 relative z-10">
-      <header class="glass-panel sticky top-0 z-20 px-4 py-3 border-b border-white/40">
+    <div id="screen-absensi" class="hidden min-h-screen pb-28">
+      <header class="bg-emerald-600 text-white sticky top-0 z-20 shadow-md px-4 py-3">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
           <div class="flex items-center gap-2">
-            <button id="btn-back-admin" onclick="showScreen('screen-admin')" class="hidden glass-card hover:bg-white px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-800 transition flex items-center gap-1">
+            <button id="btn-back-admin" onclick="showScreen('screen-admin')" class="hidden bg-emerald-700 hover:bg-emerald-800 px-2.5 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
               <span>Dashboard</span>
             </button>
             <div>
-              <p id="user-greeting" class="text-[11px] text-emerald-800 font-semibold">Hallo, -</p>
-              <h3 id="current-kelompok-title" class="font-bold text-sm sm:text-base text-slate-900">Kelompok Loading...</h3>
-              <p id="current-date-display" class="text-[10px] text-slate-600">-</p>
+              <p id="user-greeting" class="text-[11px] text-emerald-100 font-medium">Hallo, -</p>
+              <h3 id="current-kelompok-title" class="font-bold text-sm sm:text-base">Kelompok Loading...</h3>
+              <p id="current-date-display" class="text-[10px] text-emerald-200">-</p>
             </div>
           </div>
-          <button onclick="logout()" class="text-xs glass-card hover:bg-white px-3.5 py-1.5 rounded-xl text-slate-700 transition font-semibold">
+          <button onclick="logout()" class="text-xs bg-emerald-700 hover:bg-emerald-800 px-3.5 py-1.5 rounded-lg border border-emerald-500 transition">
             Keluar
           </button>
         </div>
       </header>
 
       <main class="max-w-4xl mx-auto p-4 sm:p-6 space-y-4">
-        <div class="grid grid-cols-4 gap-2 glass-panel p-3 rounded-2xl text-center text-xs sm:text-sm font-semibold max-w-md mx-auto sm:max-w-none">
-          <div class="bg-emerald-100/80 text-emerald-800 py-2 rounded-xl">Hadir: <span id="count-h" class="font-bold">0</span></div>
-          <div class="bg-blue-100/80 text-blue-800 py-2 rounded-xl">Izin: <span id="count-i" class="font-bold">0</span></div>
-          <div class="bg-amber-100/80 text-amber-800 py-2 rounded-xl">Sakit: <span id="count-s" class="font-bold">0</span></div>
-          <div class="bg-rose-100/80 text-rose-800 py-2 rounded-xl">Alfa: <span id="count-a" class="font-bold">0</span></div>
+        <div class="grid grid-cols-4 gap-2 bg-white/90 backdrop-blur-md p-3 rounded-xl border border-slate-200 text-center shadow-sm text-xs sm:text-sm font-semibold max-w-md mx-auto sm:max-w-none">
+          <div class="bg-emerald-50 text-emerald-700 py-2 rounded-lg">Hadir: <span id="count-h" class="font-bold">0</span></div>
+          <div class="bg-blue-50 text-blue-700 py-2 rounded-lg">Izin: <span id="count-i" class="font-bold">0</span></div>
+          <div class="bg-amber-50 text-amber-700 py-2 rounded-lg">Sakit: <span id="count-s" class="font-bold">0</span></div>
+          <div class="bg-rose-50 text-rose-700 py-2 rounded-lg">Alfa: <span id="count-a" class="font-bold">0</span></div>
         </div>
 
         <div id="list-siswa-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       </main>
 
-      <div class="fixed bottom-0 left-0 right-0 p-4 glass-panel border-t border-white/50 z-30">
+      <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-30">
         <div class="max-w-4xl mx-auto flex justify-end">
-          <button id="btn-submit" onclick="submitAbsensi()" class="w-full sm:w-auto px-8 bg-emerald-600 hover:bg-emerald-500 active:scale-98 text-white font-bold py-3 rounded-2xl shadow-xl transition border border-emerald-400/30">
+          <button id="btn-submit" onclick="submitAbsensi()" class="w-full sm:w-auto px-8 bg-emerald-600 hover:bg-emerald-700 active:scale-98 text-white font-bold py-3 rounded-xl shadow-lg transition">
             Kirim Data Absensi
           </button>
         </div>
@@ -316,9 +315,9 @@
   </div>
 
   <!-- WATERMARK / FOOTER BRANDING -->
-  <footer class="py-4 text-center text-[11px] text-emerald-100/80 relative z-10">
-    <p>© 2026 Absensi BT2Q SMAM 2 Depok All rights reserved</p>
-    <p class="text-[10px] text-emerald-200/60 mt-0.5">Developed with ❤ by <span class="font-bold text-emerald-300">Razuhfgkruay</span></p>
+  <footer class="py-4 text-center text-[11px] text-slate-400 border-t border-slate-200/80 bg-white/50 backdrop-blur-sm mt-auto z-10">
+    <p>© 2027 Absensi BT2Q SMAM 2 Depok All rights reserved</p>
+    <p class="text-[10px] text-slate-400 mt-0.5">Developed with ❤ by <span class="font-bold text-emerald-600">Razuhfgkruay</span></p>
   </footer>
 
   <!-- SCRIPT UTAMA & SCRIPT PROTEKSI -->
@@ -471,13 +470,13 @@
       const tabKelompok = document.getElementById('admin-tab-kelompok');
 
       if (tabName === 'today') {
-        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white/90 text-emerald-800 shadow-sm flex items-center justify-center gap-2";
-        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2";
+        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2";
+        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2";
         tabToday.classList.remove('hidden');
         tabKelompok.classList.add('hidden');
       } else {
-        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white/90 text-emerald-800 shadow-sm flex items-center justify-center gap-2";
-        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2";
+        btnKelompok.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition bg-white text-emerald-700 shadow-sm flex items-center justify-center gap-2";
+        btnToday.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center justify-center gap-2";
         tabKelompok.classList.remove('hidden');
         tabToday.classList.add('hidden');
       }
@@ -488,7 +487,7 @@
       showScreen('screen-admin');
 
       const containerToday = document.getElementById('admin-list-today');
-      containerToday.innerHTML = `<p class="col-span-full text-center text-xs text-emerald-100 py-6">Memuat status kelompok...</p>`;
+      containerToday.innerHTML = `<p class="col-span-full text-center text-xs text-slate-400 py-6">Memuat status kelompok...</p>`;
 
       try {
         const res = await fetch(`${API_URL}?action=getAdminSummary`);
@@ -509,18 +508,18 @@
           containerToday.innerHTML = "";
           data.summary.forEach(k => {
             const card = document.createElement('div');
-            card.className = "glass-card p-4 rounded-2xl flex items-center justify-between";
+            card.className = "bg-white/90 backdrop-blur-md p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between";
             const badgeStatus = k.sudahMengabsen 
-              ? `<span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Sudah Mengabsen</span>`
-              : `<span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-rose-500 rounded-full"></span> Belum Mengabsen</span>`;
+              ? `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Sudah Mengabsen</span>`
+              : `<span class="bg-rose-100 text-rose-700 text-[10px] font-bold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1"><span class="w-1.5 h-1.5 bg-rose-500 rounded-full"></span> Belum Mengabsen</span>`;
 
             card.innerHTML = `
               <div>
                 <h5 class="font-bold text-xs sm:text-sm text-slate-800">${k.idKelompok}</h5>
-                <p class="text-[11px] text-slate-600 font-medium mt-0.5">Mentor: <span class="text-slate-800 font-semibold">${k.namaPetugas}</span></p>
+                <p class="text-[11px] text-slate-500 font-medium mt-0.5">Mentor: <span class="text-slate-700">${k.namaPetugas}</span></p>
                 <div class="mt-1.5">${badgeStatus}</div>
               </div>
-              <button onclick="openKelompokAsAdmin('${k.idKelompok}')" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-xl shadow-md transition">
+              <button onclick="openKelompokAsAdmin('${k.idKelompok}')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold px-3 py-1.5 rounded-lg border border-emerald-200 transition">
                 Input Hari Ini ➔
               </button>
             `;
@@ -532,7 +531,7 @@
           data.summary.forEach(k => {
             const btnOpt = document.createElement('button');
             btnOpt.type = "button";
-            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-xl hover:bg-emerald-500 hover:text-white font-semibold transition text-slate-800";
+            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg hover:bg-emerald-50 hover:text-emerald-700 font-medium transition text-slate-700";
             btnOpt.innerText = `${k.idKelompok} (${k.namaPetugas})`;
             btnOpt.onclick = () => selectCustomKelompok(k.idKelompok, `${k.idKelompok} (${k.namaPetugas})`);
             listKelompokContainer.appendChild(btnOpt);
@@ -557,6 +556,7 @@
 
       const btnTanggal = document.getElementById('btn-dropdown-tanggal');
       btnTanggal.disabled = true;
+      btnTanggal.className = "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left text-xs sm:text-sm font-medium text-slate-400 cursor-not-allowed flex justify-between items-center transition shadow-sm";
 
       try {
         const res = await fetch(`${API_URL}?action=getTanggalListByKelompok&idKelompok=${encodeURIComponent(idKelompok)}`);
@@ -567,13 +567,13 @@
 
         if (data.success && data.tanggalList.length > 0) {
           btnTanggal.disabled = false;
-          btnTanggal.className = "glass-input w-full px-3.5 py-2.5 rounded-xl text-left text-xs sm:text-sm font-semibold text-slate-800 flex justify-between items-center transition cursor-pointer";
-          document.getElementById('selected-tanggal-label').innerText = "-- Pilih Tanggal --";
+          btnTanggal.className = "w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-left text-xs sm:text-sm font-medium text-slate-700 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 flex justify-between items-center transition shadow-sm cursor-pointer";
+          document.getElementById('selected-tanggal-label').innerText = "Pilih Tanggal!";
 
           data.tanggalList.forEach(tgl => {
             const btnOpt = document.createElement('button');
             btnOpt.type = "button";
-            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-xl hover:bg-emerald-500 hover:text-white font-semibold transition text-slate-800";
+            btnOpt.className = "w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg hover:bg-emerald-50 hover:text-emerald-700 font-medium transition text-slate-700";
             btnOpt.innerText = tgl;
             btnOpt.onclick = () => selectCustomTanggal(tgl);
             listTanggalContainer.appendChild(btnOpt);
@@ -609,7 +609,7 @@
       document.getElementById('detail-kelompok-title').innerText = idKelompok;
       document.getElementById('detail-tanggal-title').innerText = getHariDanTanggal(tanggal);
 
-      tableBody.innerHTML = `<tr><td colspan="4" class="text-center p-6 text-xs text-slate-500">Memuat data absensi...</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="4" class="text-center p-6 text-xs text-slate-400">Memuat data absensi...</td></tr>`;
       detailContainer.classList.remove('hidden');
 
       try {
@@ -619,16 +619,16 @@
         if (data.success) {
           tableBody.innerHTML = "";
           data.listSiswa.forEach((siswa, idx) => {
-            let colorBadge = "bg-rose-100 text-rose-800";
-            if (siswa.status === 'Hadir') colorBadge = "bg-emerald-100 text-emerald-800";
-            else if (siswa.status === 'Izin') colorBadge = "bg-blue-100 text-blue-800";
-            else if (siswa.status === 'Sakit') colorBadge = "bg-amber-100 text-amber-800";
+            let colorBadge = "bg-rose-100 text-rose-700";
+            if (siswa.status === 'Hadir') colorBadge = "bg-emerald-100 text-emerald-700";
+            else if (siswa.status === 'Izin') colorBadge = "bg-blue-100 text-blue-700";
+            else if (siswa.status === 'Sakit') colorBadge = "bg-amber-100 text-amber-700";
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
               <td class="p-3.5 font-medium text-slate-500">${idx + 1}</td>
               <td class="p-3.5 font-semibold text-slate-800">${siswa.nama}</td>
-              <td class="p-3.5 text-slate-600">Kelas ${cleanKelasText(siswa.kelas)}</td>
+              <td class="p-3.5 text-slate-500">Kelas ${cleanKelasText(siswa.kelas)}</td>
               <td class="p-3.5 text-center">
                 <span class="px-2.5 py-1 text-xs font-bold rounded-lg ${colorBadge}">${siswa.status}</span>
               </td>
@@ -676,7 +676,7 @@
       container.innerHTML = "";
 
       if (list.length === 0) {
-        container.innerHTML = `<p class="col-span-full text-center text-xs text-emerald-100 py-10">Belum ada data siswa.</p>`;
+        container.innerHTML = `<p class="col-span-full text-center text-xs text-slate-400 py-10">Belum ada data siswa.</p>`;
         return;
       }
 
@@ -684,13 +684,13 @@
         const st = siswa.status || 'Alfa';
 
         const item = document.createElement('div');
-        item.className = "glass-card p-3.5 rounded-2xl flex items-center justify-between gap-2";
+        item.className = "bg-white/90 backdrop-blur-md p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-2";
         item.innerHTML = `
           <div class="min-w-0 flex-1">
-            <p class="font-bold text-slate-800 text-xs sm:text-sm truncate">${siswa.nama}</p>
-            <span class="text-[10px] text-slate-600 bg-slate-200/60 px-2 py-0.5 rounded-md font-semibold">Kelas ${cleanKelasText(siswa.kelas)}</span>
+            <p class="font-semibold text-slate-800 text-xs sm:text-sm truncate">${siswa.nama}</p>
+            <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md font-medium">Kelas ${cleanKelasText(siswa.kelas)}</span>
           </div>
-          <div class="flex gap-1 bg-slate-200/50 p-1 rounded-xl shrink-0">
+          <div class="flex gap-1 bg-slate-100 p-1 rounded-lg shrink-0">
             ${renderRadio(index, 'Hadir', 'H', st === 'Hadir', 'emerald')}
             ${renderRadio(index, 'Izin', 'I', st === 'Izin', 'blue')}
             ${renderRadio(index, 'Sakit', 'S', st === 'Sakit', 'amber')}
@@ -706,7 +706,7 @@
       return `
         <label class="cursor-pointer">
           <input type="radio" name="siswa_${index}" value="${fullVal}" onchange="updateCounter()" class="peer hidden" ${isChecked ? 'checked' : ''}>
-          <span class="px-2.5 py-1 text-xs font-bold rounded-lg block peer-checked:bg-${color}-500 peer-checked:text-white text-slate-600 transition">${labelText}</span>
+          <span class="px-2.5 py-1 text-xs font-bold rounded-md block peer-checked:bg-${color}-500 peer-checked:text-white text-slate-500 transition">${labelText}</span>
         </label>
       `;
     }
@@ -764,7 +764,7 @@
       } catch (err) {
         btn.disabled = false;
         btn.innerText = "Kirim Data Absensi";
-        showToast("Gagal mengirim data!");
+        showToast("Gagal menyimpan data!");
       }
     }
 
