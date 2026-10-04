@@ -8,6 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Anti Seleksi Teks & Highlight */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     body { 
       font-family: 'Inter', sans-serif;
       -webkit-user-select: none;
@@ -15,13 +21,13 @@
       -ms-user-select: none;
       user-select: none;
       
-      /* BACKGROUND FITUR BT2Q-BG ZOOM & FULL LAYAR */
+      /* BACKGROUND BT2Q-BG COVER FULL SCREEN */
       background-color: #f1f5f9;
       background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.45), rgba(241, 245, 249, 0.75)), url('bt2q-bg.jpg');
       background-repeat: no-repeat;
-      background-size: cover; /* Selalu full layar tanpa terpotong batas bawah */
-      background-position: top center; /* Patokan gambar paling atas */
-      background-attachment: fixed;
+      background-size: cover; /* Menutupi 100% layar tanpa celah */
+      background-position: top center;
+      background-attachment: fixed; /* Menjaga background tetap full saat discroll */
     }
 
     .hidden { display: none !important; }
@@ -91,7 +97,7 @@
   <div class="flex-1 flex flex-col">
 
     <!-- ==================== 1. LAYAR LOGIN ==================== -->
-    <div id="screen-login" class="relative flex items-center justify-center p-4 my-auto min-h-[85vh]">
+    <div id="screen-login" class="relative flex-1 flex flex-col justify-center items-center p-4 min-h-screen">
       
       <!-- BACKGROUND GELEMBUNG CAHAYA BERGERAK FULL LAYAR -->
       <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -101,7 +107,7 @@
       </div>
 
       <!-- CARD LOGIN -->
-      <div class="relative z-10 bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/60">
+      <div class="relative z-10 bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-2xl shadow-2xl p-6 sm:p-8 border border-white/60 my-auto">
         
         <!-- Header Login Layout Samping -->
         <div class="flex items-center gap-4 mb-6">
@@ -304,7 +310,7 @@
   </div>
 
   <!-- WATERMARK / FOOTER BRANDING -->
-  <footer class="py-4 text-center text-[11px] text-slate-400 border-t border-slate-200/80 bg-white/50 backdrop-blur-sm mt-auto z-10">
+  <footer class="py-4 text-center text-[11px] text-slate-400 border-t border-slate-200/80 bg-white/50 backdrop-blur-sm mt-auto relative z-10">
     <p>© 2027 Absensi BT2Q SMAM 2 Depok All rights reserved</p>
     <p class="text-[10px] text-slate-400 mt-0.5">Developed with ❤ by <span class="font-bold text-emerald-600">Razuhfgkruay</span></p>
   </footer>
